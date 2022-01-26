@@ -36,3 +36,4 @@ services:
       - product-db
     links:
       - product-db
+
