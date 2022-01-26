@@ -1,0 +1,7 @@
+uvicorn
+fastapi
+requests
+configparser
+psycopg2
+numpy
+pyyaml

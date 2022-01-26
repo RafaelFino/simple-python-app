@@ -1,0 +1,12 @@
+FROM python:3
+
+WORKDIR /usr/src/app
+
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+EXPOSE 8081
+
+CMD [ "uvicorn", "app.main:app", "--reload", "--log-level", "trace", "--port", "8082", "--host", "0.0.0.0" , "--log-config", "etc/log-config.yml" ]
