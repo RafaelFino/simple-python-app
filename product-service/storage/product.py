@@ -1,5 +1,4 @@
 from unicodedata import decimal
-
 from numpy import int64
 from entities.product import Product
 import psycopg2
@@ -35,33 +34,22 @@ class ProductStorage:
         id = cur.fetchone()[0]
 
         self.conn.commit()
+        cur.close()
 
         return id
     
     def LoadAll(self):
-        self.Connect()
-
-        cur = self.conn.cursor()
-
-        cur.execute(f"SELECT id, name, price::money::numeric::float8 FROM product order by id;")
-        
-        data = cur.fetchall()
-        ret = []
-
-        for i in data:
-            ret.append(Product(i[0], i[1], int64(i[2])))
-
-        cur.close()
-
-        return ret
-
+        return self.load(f"SELECT id, name, price::money::numeric::float8 FROM product ORDER BY id;")
 
     def LoadProduct(self, id):
+        return self.load(f"SELECT id, name, price::money::numeric::float8 FROM product WHERE id = {id} ORDER BY id")
+
+    def load(self, query:str):
         self.Connect()
 
         cur = self.conn.cursor()
 
-        cur.execute(f"SELECT id, name, price::money::numeric::float8 FROM product WHERE id = {id}")
+        cur.execute(query)
         
         data = cur.fetchall()
         ret = []

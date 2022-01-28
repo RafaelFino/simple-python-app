@@ -25,7 +25,7 @@ services:
     ports:
       - 5432:5432
     volumes:
-      - "./product-service/db/data:/var/lib/postgresql/data"
+      - ".product-service/db/data:/var/lib/postgresql/data"
 
   adminer:
     image: adminer

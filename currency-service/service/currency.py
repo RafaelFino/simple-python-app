@@ -32,3 +32,15 @@ class CurrenciesService:
 
         return self._currencies
 
+    def GetByCode(self, code:str):
+        if self.LastUpdate is None:
+            self.Load()
+
+        if datetime.now() - self.LastUpdate > timedelta(minutes=self._timeToExpire):
+            self.Load()
+
+        if code.upper() in self._currencies:
+            return self._currencies[code.upper()]
+
+        return None
+

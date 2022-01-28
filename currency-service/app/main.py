@@ -59,17 +59,18 @@ async def loadCurrencies():
 async def GetCurrency(code: str, response: Response):
     start = time.time()
 
-    data = service.Get()    
+    data = service.GetByCode(code)
 
-    if code.upper() in data:
-        response.status_code = HTTPStatus.OK
+    if data is None:
+        response.status_code = HTTPStatus.NOT_FOUND
+        return createResponseBody(start)      
 
-        return createResponseBody(start, { 
-            "data": data[code.upper()]
-            })              
+    response.status_code = HTTPStatus.OK
 
-    response.status_code = HTTPStatus.NOT_FOUND
-    return createResponseBody(start)      
+    return createResponseBody(start, { 
+        "data": data
+        })              
+
 
                  
 
