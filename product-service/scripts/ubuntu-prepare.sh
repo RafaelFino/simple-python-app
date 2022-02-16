@@ -15,4 +15,4 @@ cd simple-python-app/currency-service
 pip3 install -r requirements.txt
 
 # Start application
-uvicorn app.main:app --reload --log-level trace --port 8081 --host 0.0.0.0 --log-config etc/log-config.yml
+uvicorn app.main:app --reload --log-level trace --port 8082 --host 0.0.0.0 --log-config etc/log-config.yml
